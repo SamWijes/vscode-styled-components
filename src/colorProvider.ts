@@ -48,9 +48,14 @@ export const colorProvider = {
       new ColorPresentation(
         (() => {
           const h = hsl(parsedColor);
-          return `hsl(${Math.round(h.h)}, ${Math.round(
-            h.s * 100
-          )}%, ${Math.round(h.l * 100)}%)`;
+          const hue = isNaN(h.h) ? 0 : Math.round(h.h);
+          const sat = isNaN(h.s)
+            ? 0
+            : Math.round(Math.max(0, Math.min(1, h.s)) * 100);
+          const light = isNaN(h.l)
+            ? 0
+            : Math.round(Math.max(0, Math.min(1, h.l)) * 100);
+          return `hsl(${hue}, ${sat}%, ${light}%)`;
         })()
       ),
     ];
