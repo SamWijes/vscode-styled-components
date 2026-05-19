@@ -6,7 +6,7 @@ import {
   ColorPresentation,
 } from "vscode";
 
-import { rgb, color as d3Color } from "d3-color";
+import { hsl, rgb, color as d3Color } from "d3-color";
 
 // #rrggbb or #rrggbbaa
 const colorMatch =
@@ -45,7 +45,14 @@ export const colorProvider = {
     return [
       new ColorPresentation(parsedColor.formatHex() + alphaForHex),
       new ColorPresentation(parsedColor.formatRgb()),
-      new ColorPresentation(parsedColor.formatHsl()),
+      new ColorPresentation(
+        (() => {
+          const h = hsl(parsedColor);
+          return `hsl(${Math.round(h.h)}, ${Math.round(
+            h.s * 100
+          )}%, ${Math.round(h.l * 100)}%)`;
+        })()
+      ),
     ];
   },
   provideDocumentColors(document: TextDocument) {
