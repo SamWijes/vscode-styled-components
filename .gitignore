@@ -1,5 +1,0 @@
-node_modules
-dist
-.vscode-test
-pnpm-lock.yaml
-.gitignore
