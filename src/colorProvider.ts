@@ -55,6 +55,13 @@ export const colorProvider = {
           const light = isNaN(h.l)
             ? 0
             : Math.round(Math.max(0, Math.min(1, h.l)) * 100);
+          const alpha = isNaN(h.opacity)
+            ? 1
+            : Math.max(0, Math.min(1, h.opacity));
+
+          if (alpha < 1) {
+            return `hsla(${hue}, ${sat}%, ${light}%, ${alpha})`;
+          }
           return `hsl(${hue}, ${sat}%, ${light}%)`;
         })()
       ),
